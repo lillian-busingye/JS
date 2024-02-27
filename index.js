@@ -1,16 +1,30 @@
-const loginForm = document.getElementsByName("action_page.php");
+const loginForm = document.getElementById("login-form");
 const loginButton = document.getElementById("loginBtn");
 const loginErrorMsg = document.getElementById("login-error-msg");
+const usernameInput = document.getElementById("username");
+const passwordInput = document.getElementById("password");
 
-loginButton.addEventListener("click", (e) => {
+const inputFieldCallback = (e) => {
     e.preventDefault();
-    const Username = loginForm.Username.value;
-    const password = loginForm.password.value;
+    e.stopPropagation();
+    loginErrorMsg.classList.remove(["show"]);
+}
 
-    if (Username === "uname" && password === "psw") {
+usernameInput.addEventListener("focus", inputFieldCallback);
+
+passwordInput.addEventListener("focus", inputFieldCallback);
+
+loginForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const Username = e.target.username.value;
+    const password = e.target.password.value;
+
+    if (Username === "username" && password === "password") {
         alert("You have Successfully Logged in.");
         location.reload();
     } else {
-        loginErrorMsg.style.opacity = 1;
+        loginErrorMsg.classList.add(["show"]);
+
     }
 })
